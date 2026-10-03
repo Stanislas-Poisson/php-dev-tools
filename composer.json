@@ -40,7 +40,7 @@
         }
     ],
     "require": {
-        "php": ">=8.2",
+        "php": ">=8.3",
         "laravel/pint": "^1.13",
         "nunomaduro/phpinsights": "^2.12",
         "phpstan/phpstan": "^2.1",
@@ -70,7 +70,7 @@
         },
         "optimize-autoloader": true,
         "platform": {
-            "php": "8.2.0"
+            "php": "8.3.0"
         },
         "preferred-install": "dist",
         "process-timeout": 0,
