@@ -9,7 +9,7 @@ namespace StanislasPoisson\DevTools;
  */
 final readonly class Tools
 {
-    private const INSIGHTS = ['analyse', '--no-interaction', '--config-path=phpinsights.php'];
+    private const array INSIGHTS = ['analyse', '--no-interaction', '--config-path=phpinsights.php'];
 
     public function __construct(private string $root) {}
 

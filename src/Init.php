@@ -9,7 +9,7 @@ namespace StanislasPoisson\DevTools;
  */
 final readonly class Init
 {
-    private const FILES = [
+    private const array FILES = [
         'pint.json',
         'phpstan.neon.dist',
         'rector.php',

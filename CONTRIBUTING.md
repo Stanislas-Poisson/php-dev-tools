@@ -37,7 +37,7 @@ The package uses its own command. `composer` calls `php bin/php-dev-tools`, beca
 
 Do not run `vendor/bin/pint` by hand: it would read only the `pint.json` of the project, not the merged file. A file must not be excluded to hide an error, and an exclusion is explained where it is written.
 
-The `ci` check runs the same commands on PHP 8.2, 8.3 and 8.4, and must pass before a change reaches `develop` or `main`.
+The `ci` check runs the same commands on PHP 8.3 and 8.4, and must pass before a change reaches `develop` or `main`.
 
 ---
 

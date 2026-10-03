@@ -16,7 +16,7 @@ Please **do not disclose a vulnerability publicly** until it has been reviewed a
 
 | Version | Supported |
 | :--- | :--- |
-| `0.1.x` | Yes |
+| `0.2.x` | Yes |
 
 While the package is `0.x`, only the latest minor version receives fixes.
 
