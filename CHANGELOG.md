@@ -2,6 +2,13 @@
 
 All notable changes are listed here. The format follows [Keep a Changelog](https://keepachangelog.com/), and the project follows [Semantic Versioning](https://semver.org/) from the version 0.1.0.
 
+## 0.2.0 - 2026-10-03
+
+### Changed
+
+- PHP 8.3 is the lowest version, like in KMark, PPTX-Enigma and French-Postal-Code-Package ([#9](https://github.com/Stanislas-Poisson/php-dev-tools/issues/9)). A project that needs PHP 8.2 stays on `0.1.x`.
+- The constants are typed.
+
 ## 0.1.0 - 2026-10-03
 
 The first release.
