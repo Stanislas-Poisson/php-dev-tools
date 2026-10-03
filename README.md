@@ -138,8 +138,8 @@ A file must not be excluded to hide an error: write why next to each exclusion.
 
 | Hook | What it does |
 | :--- | :--- |
-| `commit-msg` | The message follows `type(scope): #TICKET subject`: the subject starts in lowercase and has at least 10 characters, and the first line has 72 characters at most. `WIP` is always accepted. |
-| `prepare-commit-msg` | Adds the ticket of the branch (`feature/#12-name`) to the message. |
+| `commit-msg` | The message follows the commit convention of the [zairakai handbook](https://gitlab.com/zairakai/handbook/-/blob/main/policies/git-rules.md): `type(scope): #TICKET subject`, with a type among `feat`, `fix`, `docs`, `style`, `refactor`, `perf`, `test`, `chore`, `ci` and `build`, an optional scope in lowercase, a ticket, a first line of 72 characters at most and a blank second line. A work in progress follows the same format. The messages that Git writes itself (`Merge`, `Revert`, `fixup!`) are accepted. |
+| `prepare-commit-msg` | Adds the ticket of a branch named `feature/#12-name`, `fix/#12-name` or `hotfix/#12-name` after the type of the message: `feat(x): subject` becomes `feat(x): #12 subject`. |
 | `pre-commit` | `composer quality:fast`. |
 | `pre-push` | `composer quality`. |
 
