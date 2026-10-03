@@ -13,7 +13,7 @@ Thank you for helping. php-dev-tools gives the quality tools of the zairakai PHP
 | **3. Branch** | `git checkout -b feature/#TICKET-name develop` | Create a branch from `develop`. |
 | **4. Code** | *(your IDE)* | Keep the change small, and write its test. |
 | **5. Check** | `composer quality` | Run the whole quality gate: Pint, PHPStan, Rector, PHP Insights and PHPUnit. |
-| **6. Commit** | `git commit -m "type(scope): #TICKET subject"` | Use the [Conventional Commits][conventional-commits] format, in English, 72 characters at most. |
+| **6. Commit** | `git commit -m "type(scope): #TICKET subject"` | Use the format of the [zairakai handbook][handbook-git-rules], in English, 72 characters at most. |
 | **7. Push** | `git push origin feature/#TICKET-name` | Push and open a pull request to `develop`. |
 
 A pull request needs a review and is merged with a merge commit.
@@ -63,4 +63,4 @@ Reserved to the maintainer. Tags are plain `X.Y.Z`, signed, and made on `main` o
 
 Code, comments, commits, issues and pull requests are in English.
 
-[conventional-commits]: https://www.conventionalcommits.org/
+[handbook-git-rules]: https://gitlab.com/zairakai/handbook/-/blob/main/policies/git-rules.md

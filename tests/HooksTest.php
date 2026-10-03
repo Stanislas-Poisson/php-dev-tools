@@ -17,25 +17,57 @@ final class HooksTest extends TestCase
      */
     public static function messageProvider(): iterable
     {
-        yield 'type, scope, ticket and subject' => ['feat(auth): #123 add user authentication', true];
+        yield 'type, scope, ticket and subject' => ['feat(auth): #102 add OAuth2 provider support', true];
 
-        yield 'type and subject' => ['chore: update the dependencies', true];
+        yield 'type, ticket and subject' => ['docs: #31 update installation instructions', true];
 
-        yield 'a work in progress' => ['WIP', true];
+        yield 'a scope with a dot, a dash and a slash' => ['ci(gitlab.ci/build-x): #5 run it', true];
 
-        yield 'a work in progress with text' => ['WIP add something', true];
+        yield 'a subject that starts in capitals' => ['fix(api): #87 Handle the null response', true];
+
+        yield 'a subject of one word' => ['chore: #1 bump', true];
+
+        yield 'a merge' => ["Merge branch 'feature/#1-name' into develop", true];
+
+        yield 'a revert' => ['Revert "feat(x): #1 add the thing"', true];
+
+        yield 'a fixup' => ['fixup! feat(x): #1 add the thing', true];
+
+        yield 'a body after a blank line' => ["feat(x): #1 add the thing\n\nThe motivation.\n\nCloses #1", true];
+
+        yield 'no ticket' => ['chore: update the dependencies', false];
+
+        yield 'a work in progress' => ['WIP', false];
+
+        yield 'a work in progress with text' => ['WIP add something', false];
 
         yield 'no type' => ['Update stuff', false];
 
         yield 'the ticket before the type' => ['#7 feat(x): add the thing', false];
 
-        yield 'a type that does not exist' => ['feature(x): add the thing here', false];
+        yield 'a type that is not in the handbook' => ['feature(x): #1 add the thing', false];
 
-        yield 'a subject in capitals' => ['feat(x): Add the thing here', false];
+        yield 'a type of Conventional Commits that is not in the handbook' => ['revert(x): #1 undo the thing', false];
 
-        yield 'a subject that is too short' => ['fix: Short', false];
+        yield 'a type in capitals' => ['Feat(x): #1 add the thing', false];
 
-        yield 'a first line of more than 72 characters' => ['feat(x): ' . str_repeat('a', 70), false];
+        yield 'a scope in capitals' => ['feat(Auth): #1 add the thing', false];
+
+        yield 'an empty scope' => ['feat(): #1 add the thing', false];
+
+        yield 'a breaking mark in the type' => ['feat!: #1 break the thing', false];
+
+        yield 'a ticket without a number' => ['feat(x): # add the thing', false];
+
+        yield 'no subject' => ['feat(x): #1', false];
+
+        yield 'no space after the ticket' => ['feat(x): #1add the thing', false];
+
+        yield 'two spaces before the ticket' => ['feat(x):  #1 add the thing', false];
+
+        yield 'a first line of more than 72 characters' => ['feat(x): #1 ' . str_repeat('a', 70), false];
+
+        yield 'a second line that is not blank' => ["feat(x): #1 add the thing\nthe body", false];
     }
 
     /**
@@ -68,18 +100,37 @@ final class HooksTest extends TestCase
 
     public function test_a_message_that_prepare_commit_msg_changed_passes_commit_msg(): void
     {
-        [, $first] = $this->hook('prepare-commit-msg', 'feature/#7-name', "feat(x): add the thing that is wanted\n");
+        [, $first] = $this->hook('prepare-commit-msg', 'feature/#7-name', "feat(x): add the thing\n");
         [$code]    = $this->hook('commit-msg', 'feature/#7-name', $first . "\n");
 
         self::assertSame(0, $code);
     }
 
     #[DataProvider('messageProvider')]
-    public function test_commit_msg_checks_the_format_of_the_message(string $message, bool $accepted): void
+    public function test_commit_msg_checks_the_commit_convention_of_the_handbook(string $message, bool $accepted): void
     {
         [$code] = $this->hook('commit-msg', 'main', $message . "\n");
 
         self::assertSame($accepted ? 0 : 1, $code);
+    }
+
+    public function test_commit_msg_says_what_the_format_is_when_it_refuses_a_message(): void
+    {
+        $temporaryDirectory = new TemporaryDirectory();
+        $temporaryDirectory->write('MESSAGE', "Update stuff\n");
+
+        $process = proc_open(
+            ['bash', __DIR__ . '/../hooks/commit-msg', $temporaryDirectory->path . '/MESSAGE'],
+            [1 => ['pipe', 'w'], 2 => ['pipe', 'w']],
+            $pipes,
+        );
+
+        self::assertIsResource($process);
+        $output = (string) stream_get_contents($pipes[1]);
+        proc_close($process);
+
+        self::assertStringContainsString('<type>(<scope>): #TICKET <subject>', $output);
+        self::assertStringContainsString('Types: feat, fix, docs, style, refactor, perf, test, chore, ci, build', $output);
     }
 
     /**
