@@ -155,9 +155,24 @@ A file must not be excluded to hide an error: write why next to each exclusion.
 
 ## Known limits
 
-- **It is a first version (0.x)**: the names of the commands and of the classes can still change between two minor versions.
 - **The tools come with this package**: a project cannot choose their version.
 - **The scripts of `composer.json` are written by hand**: `init` does not edit this file.
+
+## Versioning
+
+The package follows [Semantic Versioning](https://semver.org/). Require it with `^1.0`.
+
+**A major version** changes what a project writes or calls:
+- the names and the options of the commands of `php-dev-tools`,
+- `Rector::configure()` and `Insights::config()`, with the keys that `Insights::config()` merges,
+- the files that `init` creates, and how the `pint.json` of a project is merged,
+- the paths of the base files in `vendor/` that a project includes or extends,
+- the names of the Git hooks, and the format of a commit message that they ask for,
+- the lowest version of PHP.
+
+**A minor version** can add a command, a hook or an option, and **can add or tighten a rule** of the base, or raise the version of a tool: a project that was green can turn red. The changelog lists these changes, and a project that does not want to follow can keep the version it has.
+
+**A patch version** fixes a defect without changing what the tools ask for.
 
 ## Development
 
@@ -174,8 +189,9 @@ See [CONTRIBUTING.md](CONTRIBUTING.md) for the details.
 1. The configurations, the command and the hooks ([#3](https://github.com/Stanislas-Poisson/php-dev-tools/issues/3)): done.
 2. The community files ([#2](https://github.com/Stanislas-Poisson/php-dev-tools/issues/2)): done.
 3. Used in KMark, PPTX-Enigma and French-Postal-Code-Package: done.
-4. The first release, `0.1.0` ([#6](https://github.com/Stanislas-Poisson/php-dev-tools/issues/6)).
+4. The first release, `0.1.0` ([#6](https://github.com/Stanislas-Poisson/php-dev-tools/issues/6)): done.
 5. PHP 8.3 as the lowest version, with the other projects ([#9](https://github.com/Stanislas-Poisson/php-dev-tools/issues/9)): done.
+6. The first stable version, `1.0.0` ([#12](https://github.com/Stanislas-Poisson/php-dev-tools/issues/12)).
 
 ## License
 
