@@ -16,7 +16,7 @@ final class RectorTest extends TestCase
         $temporaryDirectory = new TemporaryDirectory();
         mkdir($temporaryDirectory->path . '/src');
 
-        Rector::configure($temporaryDirectory->path, '8.2');
+        Rector::configure($temporaryDirectory->path, '8.3');
         Rector::configure($temporaryDirectory->path, '8.3', ['src', 'missing']);
     }
 }

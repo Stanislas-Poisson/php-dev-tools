@@ -11,7 +11,7 @@ use RuntimeException;
  */
 final readonly class Console
 {
-    private const HOOKS = 'vendor/stanislas-poisson/php-dev-tools/hooks';
+    private const string HOOKS = 'vendor/stanislas-poisson/php-dev-tools/hooks';
 
     public function __construct(
         private Runner $runner,
