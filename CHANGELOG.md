@@ -13,7 +13,7 @@ The first stable version. It holds what the version `0.2.0` was going to hold, w
 
 ### Fixed
 
-- The hook `prepare-commit-msg` put the ticket of the branch in front of the message, which the hook `commit-msg` refused. The ticket now goes after `type(scope): `, also with `git commit -m` ([#11](https://github.com/Stanislas-Poisson/php-dev-tools/issues/11)).
+- The hook `prepare-commit-msg` put the ticket of the branch in front of the message, which the hook `commit-msg` refused. The ticket now goes after the `type(scope):` of the message, also with `git commit -m` ([#11](https://github.com/Stanislas-Poisson/php-dev-tools/issues/11)).
 
 ## 0.1.0 - 2026-10-03
 
