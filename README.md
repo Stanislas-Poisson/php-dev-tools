@@ -2,8 +2,6 @@
 
 The quality tools of the zairakai PHP projects, without Laravel: Pint, PHPStan, Rector, PHP Insights, markdownlint and the Git hooks, as a base that a project extends.
 
-> **Status: work in progress.** There is no release yet. The package is not on Packagist.
-
 ## The principle
 
 A project does not copy the rules of the tools. It has its own small configuration files, which **extend** the rules that live in `vendor/`. The rules are then always the ones of the installed version of this package, and the project only writes what is specific to it: an exclusion that is justified, a path, a rule it changes.
@@ -22,8 +20,6 @@ A project does not copy the rules of the tools. It has its own small configurati
 PHP 8.2 or higher. It should move to 8.3 with the other projects.
 
 ## Installation
-
-This package is not published yet. When it is:
 
 ```sh
 composer require --dev stanislas-poisson/php-dev-tools
@@ -159,7 +155,7 @@ A file must not be excluded to hide an error: write why next to each exclusion.
 
 ## Known limits
 
-- **It has not been installed from Packagist**, since it is not published: it was checked in its own repository, which uses its own command.
+- **It is a first version (0.x)**: the names of the commands and of the classes can still change between two minor versions.
 - **The tools come with this package**: a project cannot choose their version, and PHP 8.2 limits the ones that Composer can pick there.
 - **The scripts of `composer.json` are written by hand**: `init` does not edit this file.
 
@@ -175,10 +171,11 @@ See [CONTRIBUTING.md](CONTRIBUTING.md) for the details.
 
 ## Roadmap
 
-1. The configurations, the command and the hooks ([#3](https://github.com/Stanislas-Poisson/php-dev-tools/issues/3)).
-2. The community files ([#2](https://github.com/Stanislas-Poisson/php-dev-tools/issues/2)).
-3. Use it in KMark, PPTX-Enigma and French-Postal-Code-Package.
-4. The release and Packagist, once the package is clean and merged.
+1. The configurations, the command and the hooks ([#3](https://github.com/Stanislas-Poisson/php-dev-tools/issues/3)): done.
+2. The community files ([#2](https://github.com/Stanislas-Poisson/php-dev-tools/issues/2)): done.
+3. Used in KMark, PPTX-Enigma and French-Postal-Code-Package: done.
+4. The first release, `0.1.0` ([#6](https://github.com/Stanislas-Poisson/php-dev-tools/issues/6)).
+5. PHP 8.3 as the lowest version, with the other projects.
 
 ## License
 

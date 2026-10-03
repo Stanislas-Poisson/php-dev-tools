@@ -14,7 +14,11 @@ Please **do not disclose a vulnerability publicly** until it has been reviewed a
 
 ## Supported versions
 
-php-dev-tools has no release yet. Fixes are made on `main`.
+| Version | Supported |
+| :--- | :--- |
+| `0.1.x` | Yes |
+
+While the package is `0.x`, only the latest minor version receives fixes.
 
 ---
 
