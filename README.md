@@ -163,6 +163,7 @@ A file must not be excluded to hide an error: write why next to each exclusion.
 The package follows [Semantic Versioning](https://semver.org/). Require it with `^1.0`.
 
 **A major version** changes what a project writes or calls:
+
 - the names and the options of the commands of `php-dev-tools`,
 - `Rector::configure()` and `Insights::config()`, with the keys that `Insights::config()` merges,
 - the files that `init` creates, and how the `pint.json` of a project is merged,
