@@ -8,6 +8,7 @@ The first stable version. It holds what the version `0.2.0` was going to hold, w
 
 ### Changed
 
+- The hook `commit-msg` follows the commit convention of the zairakai handbook, which is the only one of the zairakai tools: `type(scope): #TICKET subject`, with the types of the handbook, a ticket that is mandatory, a first line of 72 characters at most and a blank second line. It no longer accepts `WIP` alone, and no longer asks for a lowercase subject of 10 characters ([#15](https://github.com/Stanislas-Poisson/php-dev-tools/issues/15)).
 - PHP 8.3 is the lowest version, like in KMark, PPTX-Enigma and French-Postal-Code-Package ([#9](https://github.com/Stanislas-Poisson/php-dev-tools/issues/9)). A project that needs PHP 8.2 stays on `0.1.x`.
 - The constants are typed.
 
