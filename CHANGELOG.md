@@ -1,8 +1,10 @@
 # Changelog
 
-All notable changes are listed here. The format follows [Keep a Changelog](https://keepachangelog.com/), and the project will follow [Semantic Versioning](https://semver.org/) once it has a first release. There is no release yet.
+All notable changes are listed here. The format follows [Keep a Changelog](https://keepachangelog.com/), and the project follows [Semantic Versioning](https://semver.org/) from the version 0.1.0.
 
-## Unreleased
+## 0.1.0 - 2026-10-03
+
+The first release.
 
 ### Added
 

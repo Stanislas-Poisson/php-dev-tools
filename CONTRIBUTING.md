@@ -41,6 +41,24 @@ The `ci` check runs the same commands on PHP 8.2, 8.3 and 8.4, and must pass bef
 
 ---
 
+## Releasing
+
+Reserved to the maintainer. Tags are plain `X.Y.Z`, signed, and made on `main` only.
+
+1. Merge `develop` into `main` with a pull request, and wait for the CI of `main`.
+2. Tag the merge commit and push the tag:
+
+   ```bash
+   git checkout main && git pull
+   git tag -s 0.1.0 -m "0.1.0"
+   git push origin 0.1.0
+   ```
+
+3. The `Release` workflow checks that the tag is on `main` and that the CI passed on that commit, then creates the GitHub release. Its notes list the merged pull requests by label and give the `composer require` line.
+4. Packagist reads the new tag by itself, once the package is submitted and its GitHub hook is active. The last step of the workflow warns when it does not list the version.
+
+---
+
 ## Language
 
 Code, comments, commits, issues and pull requests are in English.
