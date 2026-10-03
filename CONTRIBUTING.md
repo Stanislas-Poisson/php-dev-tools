@@ -37,7 +37,7 @@ The package uses its own command. `composer` calls `php bin/php-dev-tools`, beca
 
 Do not run `vendor/bin/pint` by hand: it would read only the `pint.json` of the project, not the merged file. A file must not be excluded to hide an error, and an exclusion is explained where it is written.
 
-The `ci` check runs the same commands on PHP 8.2, 8.3 and 8.4, and must pass before a change reaches `develop` or `main`.
+The `ci` check runs the same commands on PHP 8.3 and 8.4, and must pass before a change reaches `develop` or `main`.
 
 ---
 
@@ -50,8 +50,8 @@ Reserved to the maintainer. Tags are plain `X.Y.Z`, signed, and made on `main` o
 
    ```bash
    git checkout main && git pull
-   git tag -s 0.1.0 -m "0.1.0"
-   git push origin 0.1.0
+   git tag -s 1.0.0 -m "1.0.0"
+   git push origin 1.0.0
    ```
 
 3. The `Release` workflow checks that the tag is on `main` and that the CI passed on that commit, then creates the GitHub release. Its notes list the merged pull requests by label and give the `composer require` line.

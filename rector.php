@@ -6,4 +6,4 @@ use StanislasPoisson\DevTools\Rector;
 
 require __DIR__ . '/vendor/autoload.php';
 
-return Rector::configure(__DIR__, php: '8.2');
+return Rector::configure(__DIR__, php: '8.3');
