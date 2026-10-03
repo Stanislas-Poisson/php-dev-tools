@@ -50,8 +50,8 @@ Reserved to the maintainer. Tags are plain `X.Y.Z`, signed, and made on `main` o
 
    ```bash
    git checkout main && git pull
-   git tag -s 0.1.0 -m "0.1.0"
-   git push origin 0.1.0
+   git tag -s 1.0.0 -m "1.0.0"
+   git push origin 1.0.0
    ```
 
 3. The `Release` workflow checks that the tag is on `main` and that the CI passed on that commit, then creates the GitHub release. Its notes list the merged pull requests by label and give the `composer require` line.
