@@ -15,6 +15,10 @@ A project does not copy the rules of the tools. It has its own small configurati
 | `.markdownlint.json` | `extends` the base file. |
 | `Makefile` | Includes `Makefile.inc` and adds the targets of the project. |
 
+## Documentation
+
+The documentation site is <https://stanislas-poisson.github.io/php-dev-tools/>: this guide and the reference of every class, read from the source, for each released version (selector at the top right, `next` is `main`). Build it with `cd docs && npm ci && npm run dev`.
+
 ## Requirements
 
 PHP 8.3 or higher, like KMark, PPTX-Enigma and French-Postal-Code-Package.
