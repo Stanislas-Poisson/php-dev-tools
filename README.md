@@ -1,5 +1,12 @@
 # php-dev-tools
 
+[![CI][ci-badge]][ci]
+[![Release][release-badge]][releases]
+[![Packagist][packagist-badge]][packagist]
+[![PHP][php-badge]][packagist]
+[![License][license-badge]][license]
+[![Docs][docs-badge]][docs]
+
 The quality tools of the zairakai PHP projects, without Laravel: Pint, PHPStan, Rector, PHP Insights, markdownlint and the Git hooks, as a base that a project extends.
 
 ## The principle
@@ -17,7 +24,7 @@ A project does not copy the rules of the tools. It has its own small configurati
 
 ## Documentation
 
-The documentation site is <https://stanislas-poisson.github.io/php-dev-tools/>: this guide and the reference of every class, read from the source, for each released version (selector at the top right, `next` is `main`). Build it with `cd docs && npm ci && npm run dev`.
+The [documentation site][docs] has this guide and the reference of every class, read from the source, for each released version (selector at the top right, `next` is `main`). Build it with `cd docs && npm ci && npm run dev`.
 
 ## Requirements
 
@@ -201,3 +208,15 @@ See [CONTRIBUTING.md](CONTRIBUTING.md) for the details.
 ## License
 
 [MIT](LICENSE). Copyright (c) 2026 Stanislas Poisson.
+
+[ci-badge]: https://img.shields.io/github/actions/workflow/status/Stanislas-Poisson/php-dev-tools/ci.yml?branch=main&label=CI
+[ci]: https://github.com/Stanislas-Poisson/php-dev-tools/actions/workflows/ci.yml
+[release-badge]: https://img.shields.io/github/v/release/Stanislas-Poisson/php-dev-tools
+[releases]: https://github.com/Stanislas-Poisson/php-dev-tools/releases
+[packagist-badge]: https://img.shields.io/packagist/v/stanislas-poisson/php-dev-tools
+[packagist]: https://packagist.org/packages/stanislas-poisson/php-dev-tools
+[php-badge]: https://img.shields.io/packagist/dependency-v/stanislas-poisson/php-dev-tools/php
+[license-badge]: https://img.shields.io/github/license/Stanislas-Poisson/php-dev-tools
+[license]: LICENSE
+[docs-badge]: https://img.shields.io/badge/docs-online-blue
+[docs]: https://stanislas-poisson.github.io/php-dev-tools/
