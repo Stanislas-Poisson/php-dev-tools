@@ -2,6 +2,16 @@
 
 All notable changes are listed here. The format follows [Keep a Changelog](https://keepachangelog.com/), and the project follows [Semantic Versioning](https://semver.org/) from the version 0.1.0. See "Versioning" in the README for what the public API is.
 
+## 1.0.1 - 2026-10-06
+
+### Added
+
+- A documentation site on GitHub Pages: the guide (the README) and the reference of every class, read from the source, for each released version ([#20](https://github.com/Stanislas-Poisson/php-dev-tools/issues/20)).
+
+### Changed
+
+- The release workflow checks the format of the tag and handles the pre-releases ([#18](https://github.com/Stanislas-Poisson/php-dev-tools/issues/18)).
+
 ## 1.0.0 - 2026-10-03
 
 The first stable version. It holds what the version `0.2.0` was going to hold, which was never tagged.
