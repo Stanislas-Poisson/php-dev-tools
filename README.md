@@ -205,6 +205,10 @@ See [CONTRIBUTING.md](CONTRIBUTING.md) for the details.
 5. PHP 8.3 as the lowest version, with the other projects ([#9](https://github.com/Stanislas-Poisson/php-dev-tools/issues/9)): done.
 6. The first stable version, `1.0.0` ([#12](https://github.com/Stanislas-Poisson/php-dev-tools/issues/12)).
 
+## Statistics
+
+![Statistics of php-dev-tools][stats-card]
+
 ## License
 
 [MIT](LICENSE). Copyright (c) 2026 Stanislas Poisson.
@@ -220,3 +224,4 @@ See [CONTRIBUTING.md](CONTRIBUTING.md) for the details.
 [license]: LICENSE
 [docs-badge]: https://img.shields.io/badge/docs-online-blue
 [docs]: https://stanislas-poisson.github.io/php-dev-tools/
+[stats-card]: https://raw.githubusercontent.com/Stanislas-Poisson/Stanislas-Poisson/main/assets/projects/php-dev-tools.svg
