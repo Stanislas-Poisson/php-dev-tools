@@ -42,7 +42,7 @@
     "require": {
         "php": ">=8.3",
         "laravel/pint": "^1.32.1",
-        "nunomaduro/phpinsights": "^2.14.2",
+        "nunomaduro/phpinsights": "^2.12",
         "phpstan/phpstan": "^2.3.1",
         "phpstan/phpstan-phpunit": "^2.1.1",
         "phpstan/phpstan-strict-rules": "^2.1",
