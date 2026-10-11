@@ -87,11 +87,13 @@ jobs:
             "${flags[@]}"
 
       - name: Check Packagist has the version
+        id: packagist
         run: |
           for attempt in $(seq 1 20); do
             if curl -fsS "https://repo.packagist.org/p2/$PACKAGE.json" \
               | jq -e --arg package "$PACKAGE" --arg version "$GITHUB_REF_NAME" '.packages[$package][]? | select(.version == $version)' >/dev/null; then
               echo "Packagist has $GITHUB_REF_NAME."
+              echo "listed=true" >> "$GITHUB_OUTPUT"
               exit 0
             fi
 
@@ -101,3 +103,26 @@ jobs:
 
           # A warning, not a failure: the release exists, and the package may not be submitted to Packagist yet.
           echo "::warning::Packagist does not list $GITHUB_REF_NAME for $PACKAGE. Submit the package, or check its GitHub hook."
+
+      # laravel-dev-tools (GitLab) requires this package: it takes the new version by itself. Its weekly schedule catches
+      # up if this call is missed, and the update does nothing when it is already done.
+      - name: Start the update of laravel-dev-tools
+        if: steps.packagist.outputs.listed == 'true' && !contains(github.ref_name, '-')
+        env:
+          TRIGGER_TOKEN: ${{ secrets.GITLAB_TRIGGER_TOKEN }}
+          PROJECT_ID: ${{ vars.GITLAB_TRIGGER_PROJECT_ID }}
+        run: |
+          if [ -z "$TRIGGER_TOKEN" ] || [ -z "$PROJECT_ID" ]; then
+            echo "::warning::GITLAB_TRIGGER_TOKEN or GITLAB_TRIGGER_PROJECT_ID is not set: laravel-dev-tools is not started."
+            exit 0
+          fi
+
+          status=$(curl -sS -o /dev/null -w '%{http_code}' -X POST \
+            --form "token=$TRIGGER_TOKEN" --form "ref=develop" --form "variables[UPDATE_DEPENDENCIES]=true" \
+            "https://gitlab.com/api/v4/projects/$PROJECT_ID/trigger/pipeline")
+
+          if [ "$status" != "201" ]; then
+            echo "::warning::The update of laravel-dev-tools was not started (HTTP $status)."
+          else
+            echo "The update of laravel-dev-tools is started."
+          fi
