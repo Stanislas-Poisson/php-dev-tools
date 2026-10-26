@@ -1,0 +1,85 @@
+name: Policy sync
+
+# The packages that Dependabot skips are the ones of the dependency policy (https://gitlab.com/zairakai/dependency-policy),
+# written between the markers "dependency-policy (composer)" of .github/dependabot.yml. Every day, when the block is out of
+# date, a signed pull request fixes it and is set to merge when the CI passes. Nothing is edited by hand.
+#
+# Secrets of the repository: POLICY_SYNC_TOKEN (a token that can push and open pull requests, so that the CI runs on
+# them), GPG_PRIVATE_KEY_B64 (base64 of the signing key), RELEASE_SIGNER_NAME and RELEASE_SIGNER_EMAIL.
+# Without them the workflow does nothing.
+on:
+  schedule:
+    - cron: "17 4 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  sync:
+    name: Sync the ignore rules
+    runs-on: ubuntu-latest
+    env:
+      GH_TOKEN: ${{ secrets.POLICY_SYNC_TOKEN }}
+      GPG_PRIVATE_KEY_B64: ${{ secrets.GPG_PRIVATE_KEY_B64 }}
+      RELEASE_SIGNER_NAME: ${{ secrets.RELEASE_SIGNER_NAME }}
+      RELEASE_SIGNER_EMAIL: ${{ secrets.RELEASE_SIGNER_EMAIL }}
+    steps:
+      - name: Check the secrets
+        id: secrets
+        run: |
+          if [ -z "$GH_TOKEN" ] || [ -z "$GPG_PRIVATE_KEY_B64" ] || [ -z "$RELEASE_SIGNER_NAME" ] || [ -z "$RELEASE_SIGNER_EMAIL" ]; then
+            echo "::notice::The secrets of the sync are not set: nothing is done."
+            echo "ready=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "ready=true" >> "$GITHUB_OUTPUT"
+          fi
+
+      - uses: actions/checkout@v7
+        if: steps.secrets.outputs.ready == 'true'
+        with:
+          ref: develop
+          token: ${{ secrets.POLICY_SYNC_TOKEN }}
+
+      - uses: shivammathur/setup-php@v2
+        if: steps.secrets.outputs.ready == 'true'
+        with:
+          php-version: '8.4'
+          coverage: none
+
+      - name: Rewrite the ignore rules from the policy
+        if: steps.secrets.outputs.ready == 'true'
+        run: |
+          composer create-project --no-dev --no-scripts --no-interaction --no-progress zairakai/laravel-dev-tools "$RUNNER_TEMP/tool"
+          php "$RUNNER_TEMP/tool/bin/update-dependencies" dependabot-sync
+
+      - name: Open the pull request
+        if: steps.secrets.outputs.ready == 'true'
+        run: |
+          if git diff --quiet -- .github/dependabot.yml; then
+            echo "The ignore rules are in sync."
+            exit 0
+          fi
+
+          if [ -n "$(gh pr list --state open --base develop --search 'head:chore/policy-sync' --json number --jq '.[].number')" ]; then
+            echo "A pull request that syncs the rules is already open."
+            exit 0
+          fi
+
+          echo "$GPG_PRIVATE_KEY_B64" | base64 -d | gpg --batch --import
+          key=$(gpg --list-secret-keys --with-colons | awk -F: '/^sec/ {print $5; exit}')
+          git config user.name "$RELEASE_SIGNER_NAME"
+          git config user.email "$RELEASE_SIGNER_EMAIL"
+          git config user.signingkey "$key"
+          git config commit.gpgsign true
+
+          branch="chore/policy-sync-$(date +%Y%m%d)"
+          git switch -c "$branch"
+          git add .github/dependabot.yml
+          git commit -m "chore(policy): sync the ignore rules of Dependabot" -m "The packages that Dependabot skips follow the dependency policy."
+          git push origin "$branch"
+
+          gh pr create --base develop --head "$branch" \
+            --title "chore(policy): sync the ignore rules of Dependabot" \
+            --body "The packages that Dependabot skips follow the dependency policy (https://gitlab.com/zairakai/dependency-policy). It is merged when the CI passes."
+          gh pr merge "$branch" --auto --merge

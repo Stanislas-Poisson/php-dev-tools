@@ -41,6 +41,16 @@ The `ci` check runs the same commands on PHP 8.3 and 8.4, and must pass before a
 
 ---
 
+## Dependencies held back
+
+Some dependencies stay on an older version because another package does not accept the new one yet. They are listed in one place, the [dependency policy](https://gitlab.com/zairakai/dependency-policy) (`php.json`), with the reason and the condition that lifts the block. Nothing is written here by hand:
+
+- The workflow `Policy sync` keeps the ignore rules of `.github/dependabot.yml` (between the markers `dependency-policy (composer)`) equal to the policy, with a signed pull request.
+- The check `Dependency policy` fails a pull request that updates a package of the policy, in `composer.json` or `composer.lock`.
+- When the peers accept the new version, the policy lifts the entry by itself, the next sync removes the rule, and Dependabot proposes the update.
+
+---
+
 ## Releasing
 
 Reserved to the maintainer. Tags are plain `X.Y.Z`, signed, and made on `main` only.

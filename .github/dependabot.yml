@@ -5,6 +5,9 @@ updates:
     target-branch: develop
     schedule:
       interval: weekly
+    # The packages held back are the ones of the dependency policy: update-dependencies dependabot-sync keeps this block.
+    # BEGIN dependency-policy (composer)
+    # END dependency-policy (composer)
 
   - package-ecosystem: github-actions
     directory: /
