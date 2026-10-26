@@ -7,8 +7,6 @@ updates:
       interval: weekly
     # The packages held back are the ones of the dependency policy: update-dependencies dependabot-sync keeps this block.
     # BEGIN dependency-policy (composer)
-    ignore:
-      - dependency-name: "policy-sync/test-package"
     # END dependency-policy (composer)
 
   - package-ecosystem: github-actions
