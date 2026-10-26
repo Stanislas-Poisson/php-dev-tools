@@ -1,0 +1,31 @@
+name: Policy
+
+# A change must not update a package that the dependency policy holds back
+# (https://gitlab.com/zairakai/dependency-policy). The check only reads: it compares composer.json and composer.lock
+# with the target branch.
+on:
+  pull_request:
+    branches: [develop]
+
+permissions:
+  contents: read
+
+jobs:
+  guard:
+    name: Dependency policy
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
+
+      - uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.4'
+          coverage: none
+
+      - name: Install the update tool
+        run: composer create-project --no-dev --no-scripts --no-interaction --no-progress zairakai/laravel-dev-tools "$RUNNER_TEMP/tool"
+
+      - name: Check that no package of the policy is updated
+        run: php "$RUNNER_TEMP/tool/bin/update-dependencies" policy-check "origin/${{ github.base_ref }}"
