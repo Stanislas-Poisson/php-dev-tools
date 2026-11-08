@@ -35,7 +35,6 @@ final class Rector
                 codingStyle: true,
                 typeDeclarations: true,
                 privatization: true,
-                naming: true,
                 instanceOf: true,
                 earlyReturn: true,
             )
