@@ -56,7 +56,7 @@ return [
 
     'remove' => [
         // ── Naming conventions ────────────────────────────────────────────────
-        // PSR-12 does not enforce suffix conventions — these are noisy
+        // PSR-12 does not enforce suffix conventions - these are noisy
         SuperfluousAbstractClassNamingSniff::class,
         SuperfluousExceptionNamingSniff::class,
         SuperfluousInterfaceNamingSniff::class,
@@ -76,7 +76,7 @@ return [
 
         // ── Yoda style ───────────────────────────────────────────────────────
         // PSR-12 is silent on yoda comparisons.
-        // Pint enforces yoda_style: true — Slevocat's DisallowYodaComparisonSniff
+        // Pint enforces yoda_style: true - Slevocat's DisallowYodaComparisonSniff
         // would conflict. Pint wins.
         DisallowYodaComparisonSniff::class,
 
@@ -88,8 +88,8 @@ return [
 
         // ── Instantiation & parentheses ──────────────────────────────────────
         // PSR-12 is silent on instantiation style.
-        // Pint enforces new_with_parentheses: false — no () on new Class.
-        // All three sniffs/fixers below would force () — Pint wins.
+        // Pint enforces new_with_parentheses: false - no () on new Class.
+        // All three sniffs/fixers below would force () - Pint wins.
         NewWithParenthesesFixer::class,
         NewWithBracesFixer::class,
         ClassInstantiationSniff::class,
@@ -115,7 +115,7 @@ return [
         // ── Brace style ───────────────────────────────────────────────────────
         // PSR-12 is silent on empty body placement and else continuation style.
         // Our style: `() {}` compact bodies, `else` on new line after `}`.
-        // Pint controls both — Insights must not interfere.
+        // Pint controls both - Insights must not interfere.
         // PEAR\ScopeClosingBraceSniff: flags `() {}` compact constructor bodies
         ScopeClosingBraceSniff::class,
         // BracesFixer: forces `} else {` same line and expands empty bodies
@@ -123,12 +123,12 @@ return [
 
         // ── String concatenation ──────────────────────────────────────────────
         // PSR-12 is silent on concat style.
-        // Pint splits long lines using `.` concat — this sniff would flag that.
+        // Pint splits long lines using `.` concat - this sniff would flag that.
         UnnecessaryStringConcatSniff::class,
 
         // ── Unused parameter false positives ─────────────────────────────────
         // Pint sometimes flags parameters that are forwarded via variadic calls
-        // or used indirectly. Removing globally — noise > value here.
+        // or used indirectly. Removing globally - noise > value here.
         UnusedParameterSniff::class,
 
         // ── Useless type hint on constants ────────────────────────────────────

@@ -1,8 +1,59 @@
-/vendor/
-/composer.lock
-/.phpunit.cache/
-/build/
+# JetBrains (PhpStorm, WebStorm)
+# ----------------
+.idea/
+.idea_modules/
+*.iml
+*.ipr
+*.iws
 
-/public/
+# Visual Studio Code and derivatives
+# ----------------
+.vscode/
+.history/
+
+# Other editors
+# ----------------
+.fleet/
+.zed/
+.vs/
+*.sublime-project
+*.sublime-workspace
+.project
+.classpath
+.settings/
+nbproject/
+*.swp
+*.swo
+*~
+
+# AI assistants
+# ----------------
+# Personal instruction files: not published (the KB repositories force them with exceptions)
+AGENTS.md
+CLAUDE.md
+GEMINI.md
+*.local.md
+.claude/settings.local.json
+.aider*
+.cursor/
+.windsurf/
+.continue/
+.codex/
+.gemini/
+
+# Dependencies
+# ----------------
+/vendor/
 /docs/node_modules/
 /.npm/
+# A library does not ship its lock file
+/composer.lock
+
+# Build output
+# ----------------
+/build/
+/public/
+
+# Tests and coverage
+# ----------------
+/.phpunit.cache/
