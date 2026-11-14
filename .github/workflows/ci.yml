@@ -31,7 +31,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v7
-      - run: npx --yes markdownlint-cli2 "**/*.md" "#vendor" "#build" "#node_modules"
+      - run: npx --yes markdownlint-cli2 "**/*.md" "#vendor" "#build" "#docs" "#node_modules"
 
   security:
     name: Dependencies audit

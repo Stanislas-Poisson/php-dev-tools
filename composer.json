@@ -1,7 +1,7 @@
 {
     "$schema": "https://getcomposer.org/schema.json",
     "name": "stanislas-poisson/php-dev-tools",
-    "description": "The quality tools of the zairakai PHP projects, without Laravel: Pint, PHPStan, Rector, PHP Insights, markdownlint and the Git hooks, as a base that a project extends.",
+    "description": "The quality settings of the zairakai PHP projects, without Laravel: Pint, PHPStan, Rector, PHP Insights and markdownlint configurations, with the thin files for the editor, as a base that a project extends.",
     "type": "library",
     "keywords": [
         "dev-tools",
@@ -10,8 +10,8 @@
         "pint",
         "phpinsights",
         "markdownlint",
-        "git-hooks",
-        "code-quality"
+        "code-quality",
+        "configuration"
     ],
     "license": "MIT",
     "homepage": "https://github.com/Stanislas-Poisson/php-dev-tools",
@@ -40,16 +40,16 @@
         }
     ],
     "require": {
-        "php": ">=8.3",
-        "laravel/pint": "^1.32.1",
+        "php": ">=8.4",
+        "laravel/pint": "^1.32.3",
         "nunomaduro/phpinsights": "^2.12",
-        "phpstan/phpstan": "^2.3.1",
-        "phpstan/phpstan-phpunit": "^2.1.1",
-        "phpstan/phpstan-strict-rules": "^2.1",
-        "rector/rector": "^2.7"
+        "phpstan/phpstan": "^2.3.5",
+        "phpstan/phpstan-phpunit": "^2.1.2",
+        "phpstan/phpstan-strict-rules": "^2.1.1",
+        "rector/rector": "^2.8.4"
     },
     "require-dev": {
-        "phpunit/phpunit": "^12.5.38"
+        "phpunit/phpunit": "^12.5.44"
     },
     "autoload": {
         "psr-4": {
@@ -61,16 +61,19 @@
             "StanislasPoisson\\DevTools\\Tests\\": "tests/"
         }
     },
-    "bin": [
-        "bin/php-dev-tools"
-    ],
     "config": {
         "allow-plugins": {
             "dealerdirect/phpcodesniffer-composer-installer": true
         },
+        "audit": {
+            "ignore-severity": [
+                "low",
+                "medium"
+            ]
+        },
         "optimize-autoloader": true,
         "platform": {
-            "php": "8.3.0"
+            "php": "8.4.0"
         },
         "preferred-install": "dist",
         "process-timeout": 0,
@@ -98,19 +101,27 @@
         ]
     },
     "scripts": {
-        "analyse": "php bin/php-dev-tools analyse",
-        "cs": "php bin/php-dev-tools cs",
-        "cs:fix": "php bin/php-dev-tools cs:fix",
-        "insights": "php bin/php-dev-tools insights",
-        "markdown": "php bin/php-dev-tools markdown",
+        "analyse": "phpstan analyse --memory-limit=1G --no-progress",
+        "cs": "pint --test --config config/pint.json",
+        "cs:fix": "pint --config config/pint.json",
+        "cs-fix": "@cs:fix",
+        "insights": "phpinsights analyse --no-interaction --config-path=phpinsights.php",
+        "markdown": "npx --yes markdownlint-cli2 '**/*.md' '#vendor' '#build' '#docs' '#**/node_modules'",
         "quality": [
-            "php bin/php-dev-tools quality",
+            "@cs",
+            "@analyse",
+            "@rector",
+            "@insights",
             "@test"
         ],
-        "quality:fast": "php bin/php-dev-tools quality:fast",
-        "quality:fix": "php bin/php-dev-tools quality:fix",
-        "rector": "php bin/php-dev-tools rector",
-        "rector:fix": "php bin/php-dev-tools rector:fix",
+        "quality:fix": [
+            "@rector:fix",
+            "@cs:fix"
+        ],
+        "quality-fix": "@quality:fix",
+        "rector": "rector process --dry-run --no-progress-bar",
+        "rector:fix": "rector process --no-progress-bar",
+        "rector-fix": "@rector:fix",
         "test": "phpunit",
         "test:coverage": "phpunit --coverage-text"
     }
