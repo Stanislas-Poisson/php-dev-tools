@@ -32,12 +32,15 @@ final readonly class TemporaryDirectory
 
     private function remove(string $path): void
     {
-        $items = glob($path . '/{,.}*', GLOB_BRACE);
+        // scandir() instead of glob(GLOB_BRACE): musl (Alpine) does not define GLOB_BRACE
+        $items = scandir($path);
 
-        foreach (false === $items ? [] : $items as $item) {
-            if (in_array(basename($item), ['.', '..'], true)) {
+        foreach (false === $items ? [] : $items as $name) {
+            if (in_array($name, ['.', '..'], true)) {
                 continue;
             }
+
+            $item = $path . '/' . $name;
 
             is_dir($item) ? $this->remove($item) : unlink($item);
         }

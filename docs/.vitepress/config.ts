@@ -26,10 +26,12 @@ const project = 'https://github.com/Stanislas-Poisson/php-dev-tools'
 // DOCS_BASE is the folder of this build (/php-dev-tools/1.0.0/) and DOCS_ROOT the root of the site (/php-dev-tools/).
 export default defineConfig({
   title: 'php-dev-tools',
-  description: 'The quality tools of the zairakai PHP projects, without Laravel: Pint, PHPStan, Rector, PHP Insights, markdownlint and the Git hooks.',
+  description: 'The quality settings of the zairakai PHP projects, without Laravel: Pint, PHPStan, Rector, PHP Insights and markdownlint.',
   base: process.env.DOCS_BASE ?? '/',
   cleanUrls: true,
   lastUpdated: true,
+  // NEON, the format of phpstan.neon, is close to YAML: Shiki has no NEON grammar
+  markdown: { languageAlias: { neon: 'yaml' } },
   themeConfig: {
     root: process.env.DOCS_ROOT ?? '/',
     build,
@@ -38,7 +40,7 @@ export default defineConfig({
       { label: 'Packagist', image: 'https://img.shields.io/packagist/v/stanislas-poisson/php-dev-tools', href: 'https://packagist.org/packages/stanislas-poisson/php-dev-tools' },
       { label: 'Release', image: 'https://img.shields.io/github/v/release/Stanislas-Poisson/php-dev-tools', href: `${project}/releases` },
       { label: 'License', image: 'https://img.shields.io/badge/license-MIT-blue.svg', href: `${project}/blob/main/LICENSE` },
-      { label: 'PHP', image: 'https://img.shields.io/badge/php-%3E%3D8.3-777bb4.svg?logo=php&logoColor=white', href: 'https://www.php.net' },
+      { label: 'PHP', image: 'https://img.shields.io/badge/php-%3E%3D8.4-777bb4.svg?logo=php&logoColor=white', href: 'https://www.php.net' },
     ],
     nav: [
       { text: 'Guide', link: '/guide/readme' },
