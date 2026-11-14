@@ -14,20 +14,19 @@ Please **do not disclose a vulnerability publicly** until it has been reviewed a
 
 ## Supported versions
 
-| Version | Supported |
+| Release | Supported |
 | :--- | :--- |
-| `1.x` | Yes |
-| `0.1.x` | No |
+| Latest | Yes |
+| Older | No |
 
-Only the latest minor version of the latest major version receives fixes.
+Only the latest release receives fixes.
 
 ---
 
 ## Scope
 
-- php-dev-tools is a development tool: it runs the tools of a project (Pint, PHPStan, Rector, PHP Insights, markdownlint) with `proc_open`, writes `build/pint.json` in the project, and its Git hooks run the Composer scripts of the project. It has no server and no user account.
-- It runs the commands without a shell: the arguments are not read by one. It reads the `pint.json` of the project, and it never executes a file other than the tools and the scripts of the project.
-- Report any way to make it run a command, or write a file, that the project did not ask for.
+- php-dev-tools is a development package: it holds the configurations of the tools of a project (Pint, PHPStan, Rector, PHP Insights, markdownlint) and writes `build/pint.json` in the project. It runs no command, has no server and no user account.
+- Report any way to make a configuration run a command, or write a file, that the project did not ask for.
 - A tool that reports a wrong result, or a rule that is too strict, is not a vulnerability: open an issue.
 
 [advisories]: https://github.com/Stanislas-Poisson/php-dev-tools/security/advisories/new

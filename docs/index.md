@@ -2,7 +2,7 @@
 layout: home
 hero:
   name: "php-dev-tools"
-  tagline: The shared quality tools and Git hooks of the zairakai PHP projects.
+  tagline: The shared quality settings of the zairakai PHP projects.
   actions:
     - theme: brand
       text: Get started

@@ -4,21 +4,27 @@ declare(strict_types=1);
 
 namespace StanislasPoisson\DevTools\Tests;
 
+use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;
 use RuntimeException;
 use StanislasPoisson\DevTools\Pint;
 
 final class PintTest extends TestCase
 {
-    public function test_the_exclusions_of_the_project_are_added_and_build_and_vendor_are_always_excluded(): void
+    #[Test]
+    public function it_the_exclusions_of_the_project_are_added_and_build_and_vendor_are_always_excluded(): void
     {
-        $merged = Pint::merge(['finder' => ['exclude' => ['x']]], ['finder' => ['exclude' => ['data', 'x'], 'name' => '*.php']]);
+        $merged = Pint::merge(
+            ['finder' => ['exclude' => ['x']]],
+            ['finder' => ['exclude' => ['data', 'x'], 'name' => '*.php']],
+        );
 
         self::assertSame(['exclude' => ['build', 'vendor', 'x', 'data'], 'name' => '*.php'], $merged['finder']);
         self::assertSame(['exclude' => ['build', 'vendor']], Pint::merge([], [])['finder']);
     }
 
-    public function test_the_rules_of_the_project_replace_the_ones_of_the_base(): void
+    #[Test]
+    public function it_the_rules_of_the_project_replace_the_ones_of_the_base(): void
     {
         $merged = Pint::merge(
             ['preset' => 'laravel', 'rules' => ['a' => true, 'b' => true]],
@@ -29,7 +35,8 @@ final class PintTest extends TestCase
         self::assertSame(['a' => true, 'b' => false, 'c' => true], $merged['rules']);
     }
 
-    public function test_write_ignores_a_file_of_the_project_that_is_not_an_object(): void
+    #[Test]
+    public function it_write_ignores_a_file_of_the_project_that_is_not_an_object(): void
     {
         $temporaryDirectory = new TemporaryDirectory;
         $temporaryDirectory->write('pint.json', '3');
@@ -37,7 +44,8 @@ final class PintTest extends TestCase
         self::assertFileExists(Pint::write($temporaryDirectory->path));
     }
 
-    public function test_write_merges_the_base_and_the_file_of_the_project_in_the_build_directory(): void
+    #[Test]
+    public function it_write_merges_the_base_and_the_file_of_the_project_in_the_build_directory(): void
     {
         $temporaryDirectory = new TemporaryDirectory;
         $temporaryDirectory->write('pint.json', '{"rules": {"yoda_style": false}, "finder": {"exclude": ["data"]}}');
@@ -55,7 +63,8 @@ final class PintTest extends TestCase
         self::assertSame(['build', 'vendor', 'data'], $config['finder']['exclude']);
     }
 
-    public function test_write_refuses_a_build_directory_that_cannot_be_created(): void
+    #[Test]
+    public function it_write_refuses_a_build_directory_that_cannot_be_created(): void
     {
         $temporaryDirectory = new TemporaryDirectory;
         $temporaryDirectory->write('build', 'a file');
@@ -73,7 +82,8 @@ final class PintTest extends TestCase
         }
     }
 
-    public function test_write_refuses_a_file_of_the_project_that_is_not_json(): void
+    #[Test]
+    public function it_write_refuses_a_file_of_the_project_that_is_not_json(): void
     {
         $temporaryDirectory = new TemporaryDirectory;
         $temporaryDirectory->write('pint.json', '{nope');
@@ -84,7 +94,8 @@ final class PintTest extends TestCase
         Pint::write($temporaryDirectory->path);
     }
 
-    public function test_write_refuses_a_file_that_cannot_be_written(): void
+    #[Test]
+    public function it_write_refuses_a_file_that_cannot_be_written(): void
     {
         $temporaryDirectory = new TemporaryDirectory;
         mkdir($temporaryDirectory->path . '/build/pint.json', 0o775, true);
@@ -102,7 +113,8 @@ final class PintTest extends TestCase
         }
     }
 
-    public function test_write_works_without_a_file_in_the_project_and_drops_the_cache_of_pint(): void
+    #[Test]
+    public function it_write_works_without_a_file_in_the_project_and_drops_the_cache_of_pint(): void
     {
         $temporaryDirectory = new TemporaryDirectory;
         mkdir($temporaryDirectory->path . '/build');

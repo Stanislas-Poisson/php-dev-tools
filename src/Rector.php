@@ -15,12 +15,12 @@ final class Rector
 {
     /**
      * @param string       $root  the root of the project
-     * @param string       $php   the lowest version of PHP of the project, such as "8.3"
+     * @param string       $php   the lowest version of PHP of the project, such as "8.4"
      * @param list<string> $paths the directories to process, relative to the root
      */
     public static function configure(
         string $root,
-        string $php = '8.3',
+        string $php = '8.4',
         array $paths = ['src', 'tests'],
     ): RectorConfigBuilder {
         $directories = array_map(static fn (string $path): string => $root . '/' . $path, $paths);
